@@ -3,7 +3,7 @@
 // Define el comportamiento común de todas las casillas (mina o normal) y permite polimorfismo.
 package com.itulabs.model;
 
-public abstract class BaseTile {
+public abstract class BaseTile implements TileBehavior {
     protected boolean isRevealed;
     protected boolean isFlagged;
 

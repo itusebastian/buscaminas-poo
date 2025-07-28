@@ -2,7 +2,7 @@
 // Representa una casilla normal (no mina) del tablero. Almacena la cantidad de minas adyacentes.
 package com.itulabs.model;
 
-public class NormalTile extends BaseTile {
+public class NormalTile extends BaseTile implements TileBehavior {
     private int adjacentMines;
 
     public NormalTile() {

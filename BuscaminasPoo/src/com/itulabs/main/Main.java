@@ -2,6 +2,7 @@ package com.itulabs.main;
 
 import com.itulabs.model.Board;
 import com.itulabs.model.BaseTile;
+import com.itulabs.model.TileBehavior;
 import com.itulabs.service.GameLogic;
 import com.itulabs.ui.ConsoleRenderer;
 
@@ -28,7 +29,13 @@ public class Main {
 
         while (!gameLogic.isGameOver()) {
             renderer.render(board, false);
-            UserInputHandler.Action action = UserInputHandler.askAction(scanner, size);
+            UserInputHandler.Action action = null;
+			try {
+				action = UserInputHandler.askAction(scanner, size);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             if (action.isFlag) {
                 board.getTile(action.coord.getX(), action.coord.getY()).toggleFlag();
             } else {
