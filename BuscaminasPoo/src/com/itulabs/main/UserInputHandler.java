@@ -2,6 +2,7 @@ package com.itulabs.main;
 
 import com.itulabs.model.Coordinate;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 // Gestiona la entrada del usuario desde consola y traduce las acciones a coordenadas y tipo de acción (marcar o descubrir).
 public class UserInputHandler {
@@ -28,15 +29,28 @@ public class UserInputHandler {
                 if (input.length() < 2 || input.length() > 3) throw new NumberFormatException();
                 char rowChar = Character.toUpperCase(input.charAt(0));
                 String colStr = input.substring(1);
-                int row = rowChar - 'A';
-                int col = Integer.parseInt(colStr) - 1;
+                int row, col;
+                try {
+                    row = rowChar - 'A';
+                    col = Integer.parseInt(colStr) - 1;
+                } catch (NumberFormatException e) {
+                    throw new InputMismatchException();
+                }
                 if (row >= 0 && row < size && col >= 0 && col < size) {
-                    return new Action(isFlag, new Coordinate(row, col));
+                    try {
+                        return new Action(isFlag, new Coordinate(row, col));
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        System.out.println("Error: Coordenadas fuera de los límites del tablero. Intenta de nuevo.");
+                    }
                 } else {
                     System.out.println("Coordenadas fuera de rango (fila: A-" + (char)('A'+size-1) + ", columna: 1-" + size + "). Intenta de nuevo.");
                 }
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Usa el formato: A3 para descubrir, F A3 para marcar/desmarcar");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error: Coordenadas fuera de los límites del tablero. Intenta de nuevo.");
+            } catch (Exception e) {
+                System.out.println("Error inesperado: " + e.getMessage());
             }
         }
     }
