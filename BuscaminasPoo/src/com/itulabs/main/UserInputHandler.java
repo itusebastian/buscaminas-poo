@@ -3,7 +3,9 @@ package com.itulabs.main;
 import com.itulabs.model.Coordinate;
 import java.util.Scanner;
 
+// Gestiona la entrada del usuario desde consola y traduce las acciones a coordenadas y tipo de acción (marcar o descubrir).
 public class UserInputHandler {
+    // Representa una acción del usuario: marcar/desmarcar o descubrir una casilla.
     public static class Action {
         public final boolean isFlag;
         public final Coordinate coord;

@@ -1,8 +1,8 @@
+
+// Calcula y asigna la cantidad de minas adyacentes a cada casilla normal del tablero.
 package com.itulabs.service;
 
-import com.itulabs.model.Board;
-import com.itulabs.model.Coordinate;
-import com.itulabs.model.Tile;
+import com.itulabs.model.*;
 
 public class TileDetector {
 
@@ -12,11 +12,10 @@ public class TileDetector {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 Coordinate coord = new Coordinate(x, y);
-                Tile tile = board.getTile(coord);
-
-                if (!tile.isMine()) {
+                BaseTile tile = board.getTile(coord);
+                if (!tile.isMine() && tile instanceof NormalTile) {
                     int count = countSurroundingMines(board, coord);
-                    tile.setAdjacentMines(count);
+                    ((NormalTile) tile).setAdjacentMines(count);
                 }
             }
         }

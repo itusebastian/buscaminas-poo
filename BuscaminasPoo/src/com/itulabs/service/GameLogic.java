@@ -1,8 +1,8 @@
+
+// Gestiona la lógica principal del juego Buscaminas: turnos, reglas, victoria y derrota.
 package com.itulabs.service;
 
-import com.itulabs.model.Board;
-import com.itulabs.model.Coordinate;
-import com.itulabs.model.Tile;
+import com.itulabs.model.*;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -29,7 +29,7 @@ public class GameLogic {
     public void playTurn(Coordinate coord) {
         if (!board.isValid(coord) || gameOver) return;
 
-        Tile tile = board.getTile(coord);
+        BaseTile tile = board.getTile(coord);
         if (tile.isRevealed()) {
             return; // ya revelado
         }
@@ -60,13 +60,13 @@ public class GameLogic {
         while (!toReveal.isEmpty()) {
             Coordinate current = toReveal.poll();
             if (!board.isValid(current)) continue;
-            Tile tile = board.getTile(current);
+            BaseTile tile = board.getTile(current);
             if (tile.isRevealed()) continue;
 
             tile.reveal();
             visited.add(current);
 
-            if (tile.getAdjacentMines() == 0 && !tile.isMine()) {
+            if (tile instanceof NormalTile && ((NormalTile) tile).getAdjacentMines() == 0 && !tile.isMine()) {
                 for (int dx = -1; dx <= 1; dx++) {
                     for (int dy = -1; dy <= 1; dy++) {
                         if (dx == 0 && dy == 0) continue;
@@ -84,7 +84,7 @@ public class GameLogic {
         int size = board.getSize();
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                Tile tile = board.getTile(x, y);
+                BaseTile tile = board.getTile(x, y);
                 if (!tile.isRevealed() && !tile.isMine()) {
                     return false;
                 }

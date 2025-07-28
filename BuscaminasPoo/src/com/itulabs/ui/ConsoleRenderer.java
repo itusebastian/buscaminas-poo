@@ -1,7 +1,9 @@
+
+// Se encarga de mostrar el tablero y su estado en la consola de texto.
 package com.itulabs.ui;
 
 import com.itulabs.model.Board;
-import com.itulabs.model.Tile;
+import com.itulabs.model.BaseTile;
 
 public class ConsoleRenderer {
 
@@ -31,7 +33,7 @@ public class ConsoleRenderer {
             char rowLabel = (char) ('A' + row);
             System.out.printf("%2c |", rowLabel);
             for (int col = 0; col < size; col++) {
-                Tile tile = board.getTile(row, col);
+                BaseTile tile = board.getTile(row, col);
                 if (tile.isFlagged()) {
                     System.out.print(" F ");
                 } else if (revealAll) {

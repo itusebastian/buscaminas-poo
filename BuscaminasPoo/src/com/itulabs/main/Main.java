@@ -1,12 +1,14 @@
 package com.itulabs.main;
 
 import com.itulabs.model.Board;
-import com.itulabs.model.Coordinate;
+import com.itulabs.model.BaseTile;
 import com.itulabs.service.GameLogic;
 import com.itulabs.ui.ConsoleRenderer;
 
 import java.util.Scanner;
 
+
+// Clase principal que inicia y ejecuta el ciclo del juego Buscaminas en consola.
 public class Main {
 
     public static void main(String[] args) {
@@ -30,7 +32,8 @@ public class Main {
             if (action.isFlag) {
                 board.getTile(action.coord.getX(), action.coord.getY()).toggleFlag();
             } else {
-                if (board.getTile(action.coord.getX(), action.coord.getY()).isFlagged()) {
+                BaseTile tile = board.getTile(action.coord.getX(), action.coord.getY());
+                if (tile.isFlagged()) {
                     System.out.println("No puedes descubrir una celda marcada. Desmarca primero la bandera.");
                 } else {
                     gameLogic.playTurn(action.coord);
@@ -48,6 +51,5 @@ public class Main {
 
         scanner.close();
     }
-
-    // ...el resto del código permanece igual...
+    
 }

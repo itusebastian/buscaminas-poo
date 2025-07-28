@@ -1,8 +1,8 @@
+
+// Se encarga de colocar minas aleatoriamente en el tablero, evitando la zona segura inicial.
 package com.itulabs.service;
 
-import com.itulabs.model.Board;
-import com.itulabs.model.Coordinate;
-import com.itulabs.model.Tile;
+import com.itulabs.model.*;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -22,8 +22,8 @@ public class MineGenerator {
             Coordinate coord = new Coordinate(x, y);
 
             if (!placed.contains(coord) && !safeZone.contains(coord)) {
-                Tile tile = board.getTile(coord);
-                tile.setMine(true);
+                // Coloca una mina reemplazando la casilla por MineTile
+                board.setTile(coord, new MineTile());
                 placed.add(coord);
             }
         }

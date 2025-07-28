@@ -1,19 +1,21 @@
+
+// Representa el tablero de Buscaminas, gestionando las casillas y su estado.
 package com.itulabs.model;
 
 public class Board {
     private final int size;
-    private final Tile[][] tiles;
+    private final BaseTile[][] tiles;
 
     public Board(int size) {
         this.size = size;
-        this.tiles = new Tile[size][size];
+        this.tiles = new BaseTile[size][size];
         initialize();
     }
 
     private void initialize() {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                tiles[x][y] = new Tile();
+                tiles[x][y] = new NormalTile();
             }
         }
     }
@@ -22,15 +24,15 @@ public class Board {
         return size;
     }
 
-    public Tile getTile(int x, int y) {
+    public BaseTile getTile(int x, int y) {
         return tiles[x][y];
     }
 
-    public Tile getTile(Coordinate coord) {
+    public BaseTile getTile(Coordinate coord) {
         return tiles[coord.getX()][coord.getY()];
     }
 
-    public void setTile(Coordinate coord, Tile tile) {
+    public void setTile(Coordinate coord, BaseTile tile) {
         tiles[coord.getX()][coord.getY()] = tile;
     }
 
@@ -39,7 +41,7 @@ public class Board {
                coord.getY() >= 0 && coord.getY() < size;
     }
 
-    public Tile[][] getTiles() {
+    public BaseTile[][] getTiles() {
         return tiles;
     }
 }

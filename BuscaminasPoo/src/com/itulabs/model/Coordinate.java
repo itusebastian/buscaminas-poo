@@ -1,3 +1,6 @@
+
+// Representa una coordenada (posición) en el tablero de Buscaminas.
+// Permite comparar posiciones y verificar límites.
 package com.itulabs.model;
 
 import java.util.Objects;
