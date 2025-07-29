@@ -1,12 +1,15 @@
+
+// Paquete que contiene las clases del modelo del juego
 package com.itulabs.model;
 
-/**
- * Thrown when trying to reveal a cell that is already revealed.
- */
+
+// Excepción lanzada cuando se intenta revelar una celda que ya está revelada
 public class CellAlreadyRevealedException extends RuntimeException {
+    // Constructor por defecto con mensaje estándar
     public CellAlreadyRevealedException() {
-        super("Cell is already revealed.");
+        super("La celda ya está revelada.");
     }
+    // Constructor que permite especificar un mensaje personalizado
     public CellAlreadyRevealedException(String message) {
         super(message);
     }

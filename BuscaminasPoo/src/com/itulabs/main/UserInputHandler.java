@@ -1,4 +1,7 @@
+
+// Paquete que contiene la lógica principal y entrada del usuario
 package com.itulabs.main;
+
 
 import com.itulabs.model.Coordinate;
 import java.util.Scanner;
@@ -8,27 +11,30 @@ import java.util.InputMismatchException;
 public class UserInputHandler {
     // Representa una acción del usuario: marcar/desmarcar o descubrir una casilla.
     public static class Action {
-        public final boolean isFlag;
-        public final Coordinate coord;
+        public final boolean isFlag; // true si es acción de marcar/desmarcar
+        public final Coordinate coord; // Coordenada de la acción
         public Action(boolean isFlag, Coordinate coord) {
             this.isFlag = isFlag;
             this.coord = coord;
         }
     }
 
+    // Solicita al usuario una acción por consola y la traduce a objeto Action
     public static Action askAction(Scanner scanner, int size) {
         while (true) {
             System.out.print("Introduce coordenada (ejemplo: A3) : ");
             try {
-                String input = scanner.nextLine().trim();
+                String input = scanner.nextLine().trim(); // Lee la entrada
                 boolean isFlag = false;
+                // Si empieza con F, es acción de marcar/desmarcar
                 if (input.toUpperCase().startsWith("F ")) {
                     isFlag = true;
                     input = input.substring(2).trim();
                 }
+                // Valida formato de entrada
                 if (input.length() < 2 || input.length() > 3) throw new NumberFormatException();
-                char rowChar = Character.toUpperCase(input.charAt(0));
-                String colStr = input.substring(1);
+                char rowChar = Character.toUpperCase(input.charAt(0)); // Letra de fila
+                String colStr = input.substring(1); // Número de columna
                 int row, col;
                 try {
                     row = rowChar - 'A';
@@ -36,6 +42,7 @@ public class UserInputHandler {
                 } catch (NumberFormatException e) {
                     throw new InputMismatchException();
                 }
+                // Verifica que la coordenada esté dentro del tablero
                 if (row >= 0 && row < size && col >= 0 && col < size) {
                     try {
                         return new Action(isFlag, new Coordinate(row, col));
@@ -52,6 +59,34 @@ public class UserInputHandler {
             } catch (Exception e) {
                 System.out.println("Error inesperado: " + e.getMessage());
             }
+        }
+    }
+
+    // Permite parsear la acción desde un input ya leído (para soportar GUARDAR)
+    // Si el input no es válido, lanza excepción
+    public static Action askActionFromInput(String input, int size) {
+        boolean isFlag = false;
+        // Si empieza con F, es acción de marcar/desmarcar
+        if (input.toUpperCase().startsWith("F ")) {
+            isFlag = true;
+            input = input.substring(2).trim();
+        }
+        // Valida formato de entrada
+        if (input.length() < 2 || input.length() > 3) throw new IllegalArgumentException();
+        char rowChar = Character.toUpperCase(input.charAt(0));
+        String colStr = input.substring(1);
+        int row, col;
+        try {
+            row = rowChar - 'A';
+            col = Integer.parseInt(colStr) - 1;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException();
+        }
+        // Verifica que la coordenada esté dentro del tablero
+        if (row >= 0 && row < size && col >= 0 && col < size) {
+            return new Action(isFlag, new Coordinate(row, col));
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 }

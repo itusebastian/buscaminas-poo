@@ -1,12 +1,15 @@
+
+// Paquete que contiene las clases del modelo del juego
 package com.itulabs.model;
 
-/**
- * Thrown when a coordinate is out of the valid board range.
- */
+
+// Excepción lanzada cuando una coordenada está fuera del rango válido del tablero
 public class InvalidCoordinateException extends RuntimeException {
+    // Constructor por defecto con mensaje estándar
     public InvalidCoordinateException() {
-        super("Invalid coordinate.");
+        super("Coordenada inválida.");
     }
+    // Constructor que permite especificar un mensaje personalizado
     public InvalidCoordinateException(String message) {
         super(message);
     }
