@@ -6,9 +6,16 @@ import org.junit.jupiter.api.Test;
 
 class BaseTileTest {
 
+
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testRevealAndFlag() {
+		com.itulabs.model.NormalTile tile = new com.itulabs.model.NormalTile();
+		assertFalse(tile.isRevealed());
+		tile.reveal();
+		assertTrue(tile.isRevealed());
+		assertFalse(tile.isFlagged());
+		tile.toggleFlag();
+		assertTrue(tile.isFlagged());
 	}
 
 }
